@@ -1,5 +1,6 @@
 require('./models/User');
 require('./models/Track');
+const mongoSecret = require('../secrets/mongoConnection.json');
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -7,6 +8,7 @@ const bodyParser = require('body-parser');
 const authRoutes = require('./routes/authRoutes');
 const trackRoutes = require('./routes/trackRoutes');
 const requireAuth = require('./middlewares/requireAuth');
+const mongoUri = mongoSecret.connectURI;
 
 const app = express();
 
@@ -14,7 +16,6 @@ app.use(bodyParser.json());
 app.use(authRoutes);
 app.use(trackRoutes);
 
-const  mongoUri = 'mongodb+srv://admin:CA0Azen28NUFQzN6@cluster0.pwo1h.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 mongoose.connect(mongoUri, {
     useNewUrlParser: true,
     useCreateIndex: true,
